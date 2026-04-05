@@ -18,7 +18,7 @@ class DatabaseManager {
             Statement stmt = conn.createStatement();
             stmt.execute("PRAGMA foreign_keys = ON;"); // Kích hoạt khóa ngoại
         } catch (SQLException e) {
-            System.out.println("Lỗi kết nối: " + e.getMessage());
+            System.out.println("Connection error!: " + e.getMessage());
         }
         return conn;
     }
@@ -35,9 +35,9 @@ class DatabaseManager {
 
         try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
-            System.out.println("--- Tạo bảng local Database thành công! ---");
+            System.out.println("--- Local database setup successful! ---");
         } catch (SQLException e) {
-            System.out.println("Lỗi setup Local Database: " + e.getMessage());
+            System.out.println("Setup error: " + e.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ class DatabaseManager {
             }
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Lỗi thực thi: " + e.getMessage());
+            System.out.println("Execution error: " + e.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ class DatabaseManager {
                 list.add(msg);
             }
         } catch (SQLException e) {
-            System.out.println("Lỗi lấy tin nhắn: " + e.getMessage());
+            System.out.println("Retrieve error: " + e.getMessage());
         }
         return list;
     }
@@ -124,7 +124,7 @@ class DatabaseManager {
                 list.add(conv);
             }
         } catch (SQLException e) {
-            System.out.println("Lỗi lấy danh sách phòng chat: " + e.getMessage());
+            System.out.println("Fetch conversations error: " + e.getMessage());
         }
         return list;
     }
@@ -135,9 +135,9 @@ class DatabaseManager {
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, messageId);
             pstmt.executeUpdate();
-            System.out.println("Đã xóa vĩnh viễn tin nhắn thành công! ID: " + messageId);
+            System.out.println("Local message deleted! ID: " + messageId);
         } catch (SQLException e) {
-            System.out.println("Lỗi xóa tin nhắn: " + e.getMessage());
+            System.out.println("Delete error: " + e.getMessage());
         }
     }
 
@@ -148,9 +148,9 @@ class DatabaseManager {
             pstmt.setString(1, newContent);
             pstmt.setLong(2, messageId);
             pstmt.executeUpdate();
-            System.out.println("Đã cập nhật nội dung tin nhắn thành công! ID: " + messageId);
+            System.out.println("Message updated successfully! ID: " + messageId);
         } catch (SQLException e) {
-            System.out.println("Lỗi cập nhật tin nhắn: " + e.getMessage());
+            System.out.println("Update error: " + e.getMessage());
         }
     }
 
@@ -166,7 +166,7 @@ class DatabaseManager {
                 return rs.getLong("max_id");
             }
         } catch (SQLException e) {
-            System.out.println("Lỗi lấy max message ID: " + e.getMessage());
+            System.out.println("Max ID fetch error: " + e.getMessage());
         }
         return 0L; // Trả về 0 nếu không có tin nhắn nào trong cuộc trò chuyện
     }
